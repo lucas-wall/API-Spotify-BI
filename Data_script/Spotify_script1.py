@@ -4,6 +4,9 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
+# Note: the API enrichment block below is wrapped in a triple-quoted string so it does not
+# re-query the Spotify API on every run. To re-run it, remove the triple quotes and set
+# CLIENT_ID / CLIENT_SECRET with your own Spotify Developer credentials.
 
 '''# Initialize your client ID and client secret from Spotify Developer Dashboard
 CLIENT_ID = '--'

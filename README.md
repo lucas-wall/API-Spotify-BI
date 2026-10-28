@@ -1,64 +1,34 @@
-# 🎧 Spotify BI Dashboard
+# 🎧 Spotify Top Tracks 2023 | Power BI + Spotify Web API
 
-Um projeto de Business Intelligence utilizando **Power BI** para análise de músicas populares do Spotify com visual interativo, dados de streaming, e integração com a **API do Spotify**.
+Power BI dashboard on the most-streamed Spotify songs of 2023. A Python script enriches the track dataset with album cover URLs pulled from the Spotify Web API, so the report can show artwork next to streams, chart presence and audio features like danceability and energy.
 
----
+## Stack
+`Power BI` `Python` `pandas` `requests` `tqdm` `Spotify Web API` `CSV`
 
-## 📊 Visão Geral
+## What it does
+- Loads `Data_script/spotify-2023.csv` (953 tracks) with streams, playlist and chart counts across Spotify, Apple Music, Deezer and Shazam.
+- Authenticates with the Spotify Web API (client credentials flow), searches each track by name and lead artist, and stores the album cover URL in a new `image_url` column (`Data_script/updated_file1.csv`).
+- Visualizes streams per track, release timeline and audio features (BPM, key, mode, danceability, valence, energy, acousticness and more) in `SpotifyBI.pbix`.
+- Uses a custom Office theme, logo and backgrounds from `imgs/` (`Theme1.thmx`, `Logo1.png`, `Layout-BG.png`, `BackGround.pptx`).
 
-O projeto visa analisar o desempenho de músicas populares no Spotify através de um dashboard com:
-
-- Número de streams por faixa
-- Análise de características musicais (danceabilidade, valência, etc.)
-- Comparação com média de streams anuais
-- Visualização da evolução temporal de faixas
-- Capas dos álbuns e imagens dos artistas via API
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- Power BI
-- Python (para integração com a API do Spotify)
-- Pandas
-- Requests
-- TQDM
-- CSV como fonte de dados
-- Spotify Web API
-
----
-
-## 📂 Estrutura de Pastas
-
-Spotify - BI/ ├── Data_script/ # Scripts de tratamento e coleta de dados
-              │ └── Spotify_script1.py ├── imgs/ # Logos, fundo e assets visuais do dashboard 
-              ├── .idea/ # Configurações do projeto (PyCharm, opcional) 
-              ├── SpotifyBI.pptx # Relatório ou apresentação
-              └── updated_file1.csv # Arquivo final com URLs das imagens
-
-
----
-
-## 🔁 Fluxo do Projeto
-
-1. 📥 Carregamento dos dados de streaming do Spotify em CSV
-2. 🎯 Consulta à API para buscar imagens dos álbuns
-3. 🐍 Script Python (`Spotify_script1.py`) adiciona URLs ao dataset
-4. 📈 Dados tratados são carregados no Power BI para criação do dashboard
-5. 🎨 Personalização com imagens, logos e tema visual
-
----
-
-## 🚀 Como Executar
-
-1. Clone o repositório:
+## How to open / run
+1. Clone the repo:
    ```bash
    git clone https://github.com/lucas-wall/API-Spotify-BI.git
+   ```
+2. To just view the report, open `SpotifyBI.pbix` in Power BI Desktop and, if prompted, point the source to `Data_script/updated_file1.csv`.
+3. To regenerate the enriched CSV:
+   - Create an app in the Spotify Developer Dashboard to get a client ID and secret.
+   - In `Data_script/Spotify_script1.py`, remove the triple quotes around the API block and fill in `CLIENT_ID` and `CLIENT_SECRET`.
+   - Install dependencies and run it from the `Data_script/` folder:
+     ```bash
+     pip install pandas requests tqdm
+     cd Data_script
+     python Spotify_script1.py
+     ```
+4. Refresh the Power BI report to pick up the new `updated_file1.csv`.
 
-2. Execute o script para gerar o dataset com imagens:
-   python Spotify_script1.py
-
-3. Abra o Power BI e carregue o arquivo .pbix com o CSV atualizado
-updated_file1.csv
-
-Crie suas próprias credenciais em: Spotify Developer Dashboard
+## Repo layout
+- `SpotifyBI.pbix` - the Power BI report
+- `Data_script/` - enrichment script, source CSV and enriched outputs
+- `imgs/` - theme, logo and background assets
